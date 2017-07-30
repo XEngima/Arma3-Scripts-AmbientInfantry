@@ -24,7 +24,7 @@ namespace Engima.AmbientInfantry.Classes
 			_self.MinSkill = 0.4;
 			_self.MaxSkill = 0.6;
 			_self.BlacklistMarkers = [];
-			_self.OnGroupCreating = { _this select 0 };
+			_self.OnGroupCreating = { true };
 			_self.OnGroupCreated = {};
 			_self.OnGroupRemoving = {};
 			_self.OnCheckReleaseGroup = { false };

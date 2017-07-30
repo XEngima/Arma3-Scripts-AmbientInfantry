@@ -1,5 +1,5 @@
 --------------------------------------------------
- - ENGIMA'S AMBIENT INFANTRY (VERSION 1.0.51) -
+ - ENGIMA'S AMBIENT INFANTRY (VERSION 1.0.6) -
 --------------------------------------------------
 
 Engima's Ambient Infantry is a script that adds patrolling infantry groups "all over the map" in an Arma 3 mission.
@@ -18,6 +18,7 @@ Script works in singleplayer, multiplayer, on hosted server, dedicated server an
 
 --- VERSION HISTORY ---
 
+1.0.6: Changed signature on callback ON_GROUP_CREATING.
 1.0.51: Removed accidental default headless client.
 1.0.5:  Added support for headless client.
 1.0.4:  Fixed: Removed forgotten debut output.
@@ -111,6 +112,30 @@ Here is a complete list of the parameters and what they do:
   routed into a blacklist marker will immediately change its direction and move out of the restricted area.
   Example: ["RestrictedAreaMarker", "HostpitalMarker", "FriendlyMilitaryBaseMarker"]
   
+* ON_GROUP_CREATING (Code): Callback that is executed right before a civilian spawns. Parameter 
+  _this is an array with the following items:
+    0 (Array): An array with spawn arguments. This array can be manipulated. Change the first item to spawn on 
+    another position, and change the second parameter to spawn unit of other classes than suggested. The spawn
+    arguments array is specified like this:
+      0 (Array): The position where the unit is suggested to spawn (can be modified).
+      1 (Array): A list with class names for units to spawn (can be modified).
+    1 (Scalar): Number of infantry groups spawned and currently controlled by the script.
+    2 (Scalar): Calculated maximun number of infantry groups that the script will try to spawn (depends on how 
+    nearby blacklist markers and how close to shore).
+  The example below will lower the number of groups during the night hours.
+  in the night.
+  Example:
+    {
+        params ["_args", "_currentGroups", "_maxGroups"];
+        private _goOnWithSpawn = true;
+        
+        if (dayTime < 8 || dayTime > 22) then {
+            _goOnWithSpawn = (_currentGroups < _maxGroups / 2);
+        };
+        
+        _goOnWithSpawn
+    )
+
 * ON_GROUP_CREATING (Code): A callback that is executed right before an ambient infantry group is spawned. Parameter 
   _this is an array and contains the following sent in parameters: 0 (Array): A list with class names that will 
   spawn. 1 (Scalar): The current instance's number of groups on the map. The function should return the array with 

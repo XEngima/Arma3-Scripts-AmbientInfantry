@@ -254,7 +254,7 @@ namespace Engima.AmbientInfantry.Classes
 		// The method should be spawned.
 		private method Run {
 			private ["_skill" as Scalar, "_group" as Group, "_unitsCount" as Scalar];
-			private ["_correctedGroupsCount" as Scalar];
+			private ["_calculatedGroupsCount" as Scalar];
 			private _groupsCount = 0 as Scalar;
 			private _spawnPos = [] as Array;
 			private _iteration = 0;
@@ -272,9 +272,9 @@ namespace Engima.AmbientInfantry.Classes
 				if (count _playerPositions > 0) then {
 					private _coveredShare = [_playerPositions] call _self.CalculateBlacklistCoverage;
 					
-					_correctedGroupsCount = round (_mConfiguration.MaxGroupsCount * (1 - _coveredShare));
+					_calculatedGroupsCount = round (_mConfiguration.MaxGroupsCount * (1 - _coveredShare));
 				
-					if (_groupsCount < _correctedGroupsCount) then
+					if (_groupsCount < _calculatedGroupsCount) then
 					{
 						// Find a spawn position
 						_spawnPos = [_playerPositions] call _self.FindSpawnPos;
@@ -289,14 +289,43 @@ namespace Engima.AmbientInfantry.Classes
 								_unitClasses pushBack (selectRandom _mConfiguration.UnitClasses);
 							};
 							
-							private _editedUnitClasses = [+_unitClasses, _groupsCount] call _mConfiguration.OnGroupCreating;
-	
-							// If the user has not messed something up, use the edited class list
-							if (_editedUnitClasses is Array) then {
-								_unitClasses = _editedUnitClasses;
-							};
-							
-							if (_unitClasses is Array && {count _unitClasses > 0}) then {
+							private _paramsArray = [_spawnPos, _unitClasses];							
+							private _goOnWithSpawn = [_paramsArray, _groupsCount, _calculatedGroupsCount] call _mConfiguration.OnGroupCreating;
+
+                            // Retrieve the possibly altered values
+                            _spawnPos = _paramsArray select 0;
+                            _unitClasses = _paramsArray select 1;
+                            
+                            // If the user has not messed something up, use the edited class list
+                            private _userMessedUp = false;
+                            private _logMsg = "";
+                            if (count _paramsArray != 2) then {
+                                _userMessedUp = true;
+                                _logMsg = "Engima.AmbientInfantry: Error - Altered params array in OnGroupCreating has wrong number of items. Should be 2.";
+                            };
+                            if (isNil "_spawnPos" || { !(_spawnPos isEqualTypeArray [0,0] || _spawnPos isEqualTypeArray [0,0,0]) }) then {
+                                _spawnPos = [0,0,0];
+                                _userMessedUp = true;
+                                _logMsg = "Engima.AmbientInfantry: Error - Altered parameter 0 in OnGroupCreating is not a position. Must be on format [0,0,0]";
+                            };
+                            if (isNil "_unitClasses" || { !_unitClasses is Array } || count _unitClasses == 0) then {
+                                _unitClasses = [];
+                                _userMessedUp = true;
+                                _logMsg = "Engima.AmbientInfantry: Error - Altered parameter 1 in OnGroupCreating is not an array. Must be an array with unit class names.";
+                            };
+                            
+                            if (isNil "_goOnWithSpawn") then {
+                                _goOnWithSpawn = false;
+                                _userMessedUp = true;
+                                _logMsg = "Engima.AmbientInfantry: Error - Return value of callback OnGroupCreating is nil. Must be true or false.";
+                            };
+                            
+                            if (_userMessedUp) then {
+                                diag_log _logMsg;
+                                player sideChat _logMsg;
+                            };
+                            
+							if (_goOnWithSpawn && {count _unitClasses > 0} && {!_userMessedUp}) then {
 								_group = createGroup _mConfiguration.Side;
 								
 								{

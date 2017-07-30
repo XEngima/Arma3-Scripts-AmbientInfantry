@@ -26,7 +26,7 @@ private _parameters = [
 	["BLACKLIST_MARKERS", []],
 	["ON_GROUP_CREATED", {}],	// Note: There are more callbacks available to further control the script.
 	["ON_GROUP_REMOVED", {}],	//       See the documentation for more info.
-	["IN_DEBUG_MODE", false]
+	["IN_DEBUG_MODE", true]
 ];
 
 // Call the function that creates and starts the ambient infantry instance.
