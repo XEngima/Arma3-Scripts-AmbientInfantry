@@ -1,0 +1,209 @@
+/*
+ * Name:	Marker
+ * Date:	2017-07-18
+ * Version: 1.0
+ * Author:  Engima
+ *
+ * Description:
+ * Models a marker on the map.
+ */
+namespace Sqx.Markers
+{
+	public class Marker
+	{
+		// Creates an icon marker.
+		public static method CreateIconMarker {
+			params [
+				"_position" as Array, 
+				["_type" as String, "hd_dot"], 
+				["_color" as String, "ColorBlack"],
+				["_text" as String, ""],
+				["_isVisible" as Boolean, true]
+			];
+			
+			([_position, "ICON", [1, 1], 0, _type, _color, "Solid", _text, 0.4, _isVisible] new Marker)
+		};
+	
+		// Creates a shape marker.
+		public static method CreateShapeMarker {
+			params [
+				"_position" as Array, 
+				["_shape" as String, "RECTANGLE"],
+				["_size" as Array, [50, 50]],
+				["_direction" as Scalar, 0],
+				["_color" as String, "ColorBlack"],
+				["_brush" as String, "Solid"],
+				["_text" as String, ""],
+				["_alpha" as Scalar, 0.4],
+				["_isVisible" as Boolean, true]
+			];
+			
+			([_position, _shape, _size, _direction, _color, _brush, _text, _alpha, _isVisible] new Marker)
+		};
+		
+		// Creates a Marker object using an existing marker.
+		public static method CreateMarkerFromMarker {
+			params ["_marker" as String];
+			
+			([
+				getMarkerPos _marker,
+				markerShape _marker,
+				markerSize _marker,
+				markerDir _marker,
+				markerType _marker,
+				markerColor _marker,
+				markerBrush _marker,
+				markerText _marker,
+				markerAlpha _marker,
+				true
+			] new Marker)
+		};
+
+		private fields ["_mShape" as String, "_mSize" as Array, "_mDirection" as Scalar, "_mType" as String, "_mColor" as String, "_mBrush" as String, "_mText" as String, "_mAlpha" as Scalar];
+
+		// Creates a Marker object.
+		// _position (Array): The marker's position.
+		// _icon (String): The icon to be shown.
+		public constructor {
+			params [
+				"_position" as Array, 
+				["_shape" as String, "ICON"],
+				["_size" as Array, [1, 1]],
+				["_direction" as Scalar, 0],
+				["_type" as String, "hd_dot"], 
+				["_color" as String, "ColorBlack"], 
+				["_brush" as String, "Solid"], 
+				["_text" as String, ""], 
+				["_alpha" as Scalar, 0.4], 
+				["_isVisible" as Boolean, true], 
+				["_name" as String, ""]
+			];
+
+			if (isNil "Sqx_Markers_Marker_CurrentId") then {
+				Sqx_Markers_Marker_CurrentId = 1;
+			};
+			
+			// Generate a name if not an explicit name will be used.
+			if (_name == "") then {
+				_name = "Sqx_Markers_Marker_" + str Sqx_Markers_Marker_CurrentId;
+				Sqx_Markers_Marker_CurrentId = Sqx_Markers_Marker_CurrentId + 1;
+			};
+			
+			_self.Name = _name;
+			_self.Position = _position;
+			_self.IsVisible = _isVisible;
+			_self.IsBlinking = false;
+			
+			_mShape = _shape;
+			_mSize = _size;
+			_mDirection = _direction;
+			_mType = _type;
+			_mColor = _color;
+			_mBrush = _brush;
+			_mText = _text;
+			_mAlpha = _alpha;
+			
+			if (_self.IsVisible) then {
+				call _self.Draw;
+			};
+		};
+		
+		// Draws the current marker on the map.
+		private method Draw {
+			private _name = _self.Name;
+			
+			createMarker [_name, _self.Position];
+			_name setMarkerShape _mShape;
+			_name setMarkerSize _mSize;
+			_name setMarkerDir _mDirection;
+			_name setMarkerType _mType;
+			_name setMarkerColor _mColor;
+			_name setMarkerBrush _mBrush;
+			_name setMarkerText _mText;
+			_name setMarkerAlpha _mAlpha;
+		};
+		
+		// Gets the marker name that is assigned.
+		public property String Name { get; private set; };
+		
+		// Gets the marker's position.
+		public property Array Position { get; private set; };
+		
+		// Gets whether the marker is visible or invisible.
+		public property Boolean IsVisible { get; private set; };
+		
+		// Gets whether the marker is blinking or not.
+		public property Boolean IsBlinking { get; private set; };
+
+		// Makes the marker appear on the map.
+		public method Show {
+			if (!_self.IsVisible) then {
+				_self.IsVisible = true;
+				call _self.Draw;
+			};
+		};
+		
+		// Makes the marker on the map invisible.
+		public method Hide {
+			if (_self.IsVisible) then {
+				deleteMarker _self.Name;
+				_self.IsVisible = false;
+				_self.IsBlinking = false;
+			};
+		};
+		
+		// Makes the marker start blinking.
+		// _interval (Scalar): Blink interval in seconds.
+		public method StartBlinking {
+			params ["_interval" as Scalar];
+			
+			if (!_self.IsBlinking) then {
+				_self.IsBlinking = true;
+				[_interval] spawn _self.DoBlink;
+			};
+		};
+		
+		// Has the marker stop blinking.
+		public method StopBlinking {
+			_self.IsBlinking = false;
+			
+			if (_self.IsVisible) then {
+				call _self.Draw;
+			};
+		};
+		
+		// Performs the blinking.
+		// _interval (Scalar): Blink interval in seconds.
+		private method DoBlink {
+			params ["_interval" as Scalar];
+			
+			private _blinkVisible = true;
+		
+			while { _self.IsBlinking } do {
+				if (_blinkVisible) then {
+					deleteMarker _self.Name;
+				}
+				else {
+					call _self.Draw;
+				};
+				
+				_blinkVisible = !_blinkVisible;
+				sleep _interval;
+			};
+		};
+		
+		// Sets (updates) the marker's position.
+		// _position (Array): The marker's new position.
+		public method SetPosition {
+			params ["_position" as Array];
+			
+			if (!(_position isEqualTo _self.Position)) then {
+				_self.Position = _position;
+				
+				if (_self.IsVisible) then {
+					(_self.Name) setMarkerPos _position;
+				};
+			};
+		};
+	};
+};

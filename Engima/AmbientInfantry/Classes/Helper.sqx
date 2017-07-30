@@ -1,0 +1,23 @@
+/*
+ * Name:	Helper
+ * Date:	2017-07-23
+ * Version: 1.0
+ * Author:  Engima
+ *
+ * Description:
+ * Includes some helper functions for the ambient infantry script.
+ */
+ 
+using Sqx.Markers;
+ 
+namespace Engima.AmbientInfantry.Classes
+{
+	public class Helper
+	{
+		// Gets all players, no matter if the current mission is a multiplayer of not.
+		// Returns (Array): A list of player objects.
+		public static method GetAllPlayers {
+			call BIS_fnc_listPlayers
+		};
+	};
+};
