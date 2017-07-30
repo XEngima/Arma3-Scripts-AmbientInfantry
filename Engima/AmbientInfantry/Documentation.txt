@@ -18,7 +18,7 @@ Script works in singleplayer, multiplayer, on hosted server, dedicated server an
 
 --- VERSION HISTORY ---
 
-1.0.6: Changed signature on callback ON_GROUP_CREATING.
+1.0.6:  Changed signature for callback ON_GROUP_CREATING.
 1.0.51: Removed accidental default headless client.
 1.0.5:  Added support for headless client.
 1.0.4:  Fixed: Removed forgotten debut output.
@@ -120,10 +120,9 @@ Here is a complete list of the parameters and what they do:
       0 (Array): The position where the unit is suggested to spawn (can be modified).
       1 (Array): A list with class names for units to spawn (can be modified).
     1 (Scalar): Number of infantry groups spawned and currently controlled by the script.
-    2 (Scalar): Calculated maximun number of infantry groups that the script will try to spawn (depends on how 
-    nearby blacklist markers and how close to shore).
+    2 (Scalar): Calculated maximun number of infantry groups that the script will try to spawn (depends on 
+    nearby blacklist markers and how close players are to shore etc.).
   The example below will lower the number of groups during the night hours.
-  in the night.
   Example:
     {
         params ["_args", "_currentGroups", "_maxGroups"];
