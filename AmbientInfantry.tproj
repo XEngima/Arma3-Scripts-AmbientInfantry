@@ -31,11 +31,11 @@
                 </SubNodes>
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="ConfigAndStart.sqf" IsExpanded="false" FileName="Engima\AmbientInfantry\ConfigAndStart.sqf">
-                <IsSelected>true</IsSelected>
+                <IsSelected>false</IsSelected>
                 <SubNodes />
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Documentation.txt" IsExpanded="false" FileName="Engima\AmbientInfantry\Documentation.txt">
-                <IsSelected>false</IsSelected>
+                <IsSelected>true</IsSelected>
                 <SubNodes />
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="HeadlessClient.sqf" IsExpanded="false" FileName="Engima\AmbientInfantry\HeadlessClient.sqf">
