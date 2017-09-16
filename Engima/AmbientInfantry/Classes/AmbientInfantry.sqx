@@ -82,18 +82,6 @@ namespace Engima.AmbientInfantry.Classes
 			_instance
 		};
 		
-		// Gets all player positions.
-		// Returns (Array): All player positions.
-		private static method Array GetAllPlayerPositions {
-			private _playerPositions = [];
-
-			{
-				_playerPositions pushBack (position vehicle _x);
-			} foreach (call Helper.GetAllPlayers) as Object;
-			
-			_playerPositions
-		};
-		
 		// Finds a suitable spawn position for an infantry group.
 		// Returns (Array): A position. An empty array if no position could be found.
 		private method Array FindSpawnPos {
@@ -109,8 +97,8 @@ namespace Engima.AmbientInfantry.Classes
 			};
 
 			// Select the player surrounded by less groups.
-			private _player1Pos = selectRandom _playerPositions;
-			private _player2Pos = selectRandom _playerPositions;
+			private _player1Pos = ((selectRandom _playerPositions) as PlayerPosition).AheadPosition;
+			private _player2Pos = ((selectRandom _playerPositions) as PlayerPosition).AheadPosition;
 			private _player1Count = 0;
 			private _player2Count = 0;
 			
@@ -153,30 +141,31 @@ namespace Engima.AmbientInfantry.Classes
 					{
 						scopeName "current";
 					
-						if (_x distance _pos < _minSpawnDistance) then {
+						if (_x.AheadPosition distance _pos < _minSpawnDistance) then {
 							_tooCloseToPlayer = true;
 							breakOut "current";
 						};
-					} foreach _playerPositions as Array;
+					} foreach _playerPositions as PlayerPosition;
 					
 					if (!_tooCloseToPlayer) then {
 						{
 							scopeName "current";
 							
-							if (_x distance _pos < _mConfiguration.MaxSpawnDistance) then {
+							if (_x.AheadPosition distance _pos < _mConfiguration.MaxSpawnDistance) then {
 								_tooFarFromPlayers = false;
 								breakOut "current";
 							};
-						} foreach _playerPositions as Array;
+						} foreach _playerPositions as PlayerPosition;
 						
 						if (!_tooFarFromPlayers) then {
 							_spawnPos = _pos;
 						};
 					};
 					
-					_tries = _tries + 1;
 					sleep 0.1;
 				};
+				
+				_tries = _tries + 1;
 			};
 			
 			_spawnPos
@@ -190,15 +179,16 @@ namespace Engima.AmbientInfantry.Classes
 		// Returns (Scalar): Coverage chare for surrounding blacklist markers. 0 if no area is
 		//                   covered by blacklist marker, and 1 if all area is covered.
 		private method Scalar CalculatePlayerBlacklistCoverage {
-			params ["_playerPos" as Array];
+			params ["_playerPos" as PlayerPosition];
 			
 			private _minSpawnDistance = _mConfiguration.MinSpawnDistance;
+			private _maxSpawnDistance = _mConfiguration.MaxSpawnDistance;
 			private _playerRadius = _mConfiguration.MaxSpawnDistance;
 			private _blacklistMarkers = _mConfiguration.BlacklistMarkers;
 			private _sumCoveredShareBlacklist = 0;
 			
 			{
-				private _distanceToMarker = _playerPos distance2D (getMarkerPos _x);
+				private _distanceToMarker = _playerPos.AheadPosition distance2D (getMarkerPos _x);
 				private _avgMarkerRadius = (((getMarkerSize _x) select 0) + ((getMarkerSize _x) select 1)) / 2;
 				private _coveredShare = 0;
 				
@@ -220,15 +210,24 @@ namespace Engima.AmbientInfantry.Classes
 			private _sumWaterCoveredShare = 0;
 			
 			for "_i" from 1 to _circleParts do {
-				private _x = (_playerPos select 0) + _minSpawnDistance * sin (_i * 360 / _circleParts);
-				private _y = (_playerPos select 1) + _minSpawnDistance * cos (_i * 360 / _circleParts);
+				private _x = (_playerPos.AheadPosition select 0) + _minSpawnDistance * sin (_i * 360 / _circleParts);
+				private _y = (_playerPos.AheadPosition select 1) + _minSpawnDistance * cos (_i * 360 / _circleParts);
+				private _closePos = [_x, _y];
 				
-				if (surfaceIsWater [_x, _y] && !([[_x, _y], _mConfiguration.BlacklistMarkers] call MarkerHelper.PositionInsideAnyMarker)) then {
+				_x = (_playerPos.AheadPosition select 0) + _maxSpawnDistance * sin (_i * 360 / _circleParts);
+				_y = (_playerPos.AheadPosition select 1) + _maxSpawnDistance * cos (_i * 360 / _circleParts);
+				private _farPos = [_x, _y];
+				
+				if (surfaceIsWater _closePos && !([_closePos, _mConfiguration.BlacklistMarkers] call MarkerHelper.PositionInsideAnyMarker)) then {
+					_waterCount = _waterCount + 1;
+				};
+				
+				if (surfaceIsWater _farPos && !([_farPos, _mConfiguration.BlacklistMarkers] call MarkerHelper.PositionInsideAnyMarker)) then {
 					_waterCount = _waterCount + 1;
 				};
 			};
 
-			_sumWaterCoveredShare = _waterCount / _circleParts;
+			_sumWaterCoveredShare = _waterCount / (_circleParts * 2);
 			
 			_sumCoveredShareBlacklist + _sumWaterCoveredShare
 		};
@@ -245,7 +244,7 @@ namespace Engima.AmbientInfantry.Classes
 			
 			{
 				_sumShare = _sumShare + ([_x] call _self.CalculatePlayerBlacklistCoverage);
-			} foreach _playerPositions as Array;
+			} foreach _playerPositions as PlayerPosition;
 			
 			_sumShare / count _playerPositions
 		};
@@ -258,19 +257,102 @@ namespace Engima.AmbientInfantry.Classes
 			private _groupsCount = 0 as Scalar;
 			private _spawnPos = [] as Array;
 			private _iteration = 0;
-			private _startCountIterations = false;
 			
 			if (isNil "Sqx_Markers_Marker_UnitCurrentId") then {
 				Sqx_Markers_Marker_UnitCurrentId = 1;
 			};
 			
+			private _closeCircleMarker = "";
+			private _farCircleMarker = "";
+			
+			if (_mConfiguration.InDebugMode && { local player }) then {
+				_closeCircleMarker = createMarkerLocal ["ENG_CloseMarker", getPos vehicle player];
+				_closeCircleMarker setMarkerShapeLocal "ELLIPSE";
+				_closeCircleMarker setMarkerSizeLocal [_mConfiguration.MinSpawnDistance, _mConfiguration.MinSpawnDistance];
+				_closeCircleMarker setMarkerColorLocal "ColorRed";
+				_closeCircleMarker setMarkerBrushLocal "Border";
+				
+				_farCircleMarker = createMarkerLocal ["ENG_FarMarker", getPos vehicle player];
+				_farCircleMarker setMarkerShapeLocal "ELLIPSE";
+				_farCircleMarker setMarkerSizeLocal [_mConfiguration.MaxSpawnDistance, _mConfiguration.MaxSpawnDistance];
+				_farCircleMarker setMarkerColorLocal "ColorBlue";
+				_farCircleMarker setMarkerBrushLocal "Border";
+			};
 			while { true } do
 			{
-				//[str _iteration] call dre_fnc_CL_ShowDebugTextAllClients;
-				private _playerPositions = call AmbientInfantry.GetAllPlayerPositions;
+				private _playerPositions = call Helper.GetAllPlayerPositions;
+				
+				if (_mConfiguration.InDebugMode && { local player }) then {
+					{
+						_closeCircleMarker setMarkerPosLocal _x.Position;
+						_farCircleMarker setMarkerPosLocal _x.AheadPosition;
+					} foreach _playerPositions as PlayerPosition;
+				};
 				
 				if (count _playerPositions > 0) then {
 					private _coveredShare = [_playerPositions] call _self.CalculateBlacklistCoverage;
+					
+					#region Removing Groups
+					
+					// Make a list of all units to keep (that are not too far away from any player)
+					private _keptGroups = [] as Array;
+					
+					// for each infantry group in _infantryGroups:
+					{
+						private _infantryGroup = _x;
+						private _releaseGroup = [_infantryGroup.Group, _groupsCount] call _mConfiguration.OnCheckReleaseGroup;
+	
+						if (!_releaseGroup is Boolean) then {
+							_releaseGroup = false;
+						};
+						
+						private _groupPos = call _x.UpdatePosition;
+						private _closestPlayerDistance = 1000000;
+						private _keepGroup = false;
+						{
+							scopeName "innerLoop";
+							
+							private _distance = (_x.AheadPosition distance2D _groupPos);
+							if (_distance < _closestPlayerDistance) then {
+								_closestPlayerDistance = _distance;
+								
+								if (_closestPlayerDistance < _mConfiguration.MaxSpawnDistance || { (_x.Position) distance2D _groupPos < (_x.Position) distance2D (_x.AheadPosition) }) then {
+									_keepGroup = true;
+									breakOut "innerLoop";
+								};
+							};							
+						} foreach (call Helper.GetAllPlayerPositions) as PlayerPosition;
+	
+						if (!_keepGroup || _releaseGroup) then {
+							if (_releaseGroup) then {
+								_groupsCount = _groupsCount - 1;
+								[_infantryGroup.Group] call WaypointHelper.DeleteAllWaypointsFromGroup;
+								[_infantryGroup.Group, _groupsCount] call _mConfiguration.OnGroupReleased;
+							}
+							else {
+								[_infantryGroup.Group, _groupsCount] call _mConfiguration.OnGroupRemoving;
+						
+								call _infantryGroup.Dispose;
+								
+								_groupsCount = _groupsCount - 1;
+								
+								if (_mConfiguration.InDebugMode) then {
+									player commandChat "Removing ambient infantry group. (Total: " + str _groupsCount + ")";;
+								};
+							};
+						}
+						else {
+							_keptGroups pushBack _infantryGroup;
+							call _infantryGroup.CheckEnteredRestrictedArea;
+						};
+					} foreach _mInfantryGroups as InfantryGroup;
+					
+					_mInfantryGroups = _keptGroups;
+					_groupsCount = count _keptGroups;
+					
+					#endregion
+					
+					#region Creating Gruops
 					
 					_calculatedGroupsCount = round (_mConfiguration.MaxGroupsCount * (1 - _coveredShare));
 				
@@ -281,7 +363,6 @@ namespace Engima.AmbientInfantry.Classes
 					
 						// If a spawn position could be found
 						if (count _spawnPos > 0) then {
-							_startCountIterations = true;
 							_unitsCount = ceil (_mConfiguration.MinUnitsInEachGroup + random (_mConfiguration.MaxUnitsInEachGroup - _mConfiguration.MinUnitsInEachGroup));
 							private _unitClasses = [] as Array;
 							
@@ -352,65 +433,16 @@ namespace Engima.AmbientInfantry.Classes
 						};
 					};
 					
-					// Make a list of all units to keep (that are not too far away from any player)
-					private _keptGroups = [] as Array;
-					
-					// for each infantry group in _infantryGroups:
-					{
-						private _infantryGroup = _x;
-						private _releaseGroup = [_infantryGroup.Group, _groupsCount] call _mConfiguration.OnCheckReleaseGroup;
-	
-						if (!_releaseGroup is Boolean) then {
-							_releaseGroup = false;
-						};
-						
-						private _groupPos = call _x.UpdatePosition;
-						private _tooFarAway = true;
-						{
-							scopeName "innerLoop";
-							
-							if (_x distance2D _groupPos < _mConfiguration.MaxSpawnDistance) then {
-								_tooFarAway = false;
-								breakOut "innerLoop";
-							};
-						} foreach (call Helper.GetAllPlayers) as Object;
-	
-						if (_tooFarAway || _releaseGroup) then {
-							if (_releaseGroup) then {
-								_groupsCount = _groupsCount - 1;
-								[_infantryGroup.Group] call WaypointHelper.DeleteAllWaypointsFromGroup;
-								[_infantryGroup.Group, _groupsCount] call _mConfiguration.OnGroupReleased;
-							}
-							else {
-								[_infantryGroup.Group, _groupsCount] call _mConfiguration.OnGroupRemoving;
-						
-								call _infantryGroup.Dispose;
-								
-								_groupsCount = _groupsCount - 1;
-								
-								if (_mConfiguration.InDebugMode) then {
-									player commandChat "Removing ambient infantry group. (Total: " + str _groupsCount + ")";;
-								};
-							};
-						}
-						else {
-							_keptGroups pushBack _infantryGroup;
-							call _infantryGroup.CheckEnteredRestrictedArea;
-						};
-					} foreach _mInfantryGroups as InfantryGroup;
-					
-					_mInfantryGroups = _keptGroups;
-					_groupsCount = count _keptGroups;
+					#endregion
 				};
-				
-				if (_startCountIterations) then {
-					_iteration = _iteration + 1;
-				};
+			
+				_iteration = _iteration + 1;
+				hint str _iteration;
 				
 				// Sleep a while
 				if (_iteration > _mConfiguration.MaxGroupsCount) then {
 					_mMissionHasStarted = true;
-					sleep 5;
+					sleep 3;
 				};
 			};
 		};

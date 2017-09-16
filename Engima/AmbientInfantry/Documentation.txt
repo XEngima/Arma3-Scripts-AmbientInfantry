@@ -1,6 +1,6 @@
---------------------------------------------------
- - ENGIMA'S AMBIENT INFANTRY (VERSION 1.0.61) -
---------------------------------------------------
+-----------------------------------------------
+ - ENGIMA'S AMBIENT INFANTRY (VERSION 1.1) -
+-----------------------------------------------
 
 Engima's Ambient Infantry is a script that adds patrolling infantry groups "all over the map" in an Arma 3 mission.
 
@@ -18,6 +18,9 @@ Script works in singleplayer, multiplayer, on hosted server, dedicated server an
 
 --- VERSION HISTORY ---
 
+1.1:  Fixed: Groups tend to spawn more often behind the players than ahead of them.
+        Fixed: Number of groups not relative to player area coverage.
+        Fixed: No groups spawning when players start in a blacklisted area.
 1.0.61: Removed faulty documentation entry about ON_GROUP_CREATING.
 1.0.6:  Changed signature for callback ON_GROUP_CREATING.
 1.0.51: Removed accidental default headless client.
@@ -32,7 +35,7 @@ Script works in singleplayer, multiplayer, on hosted server, dedicated server an
 
 --- CUSTOMIZATION ---
 
-The script can be customized for different behaviors. Customize a script by editing the startup parameters. The 
+The script can be customized for different behavior. Customize a script by editing the startup parameters. The 
 startup parameters list is an array of key value pairs. A key value pair is a small array where the key object is 
 a string with the name of the parameter setting and the second item is the actual value.
 
@@ -76,8 +79,8 @@ Here is a complete list of the parameters and what they do:
   Example: ["O_G_engineer_F", "O_G_engineer_F", "O_G_engineer_F", "O_G_officer_F"]
   
 * MAX_GROUPS_COUNT (Scalar): Maximum number of groups that exists on the map simultaneously for the current ambient
-  infantry instance. The actual number may be less, e.g. if the script do not find suitable spawn positions or if
-  part of the player's area is covered with blacklist markers.
+  infantry instance. The actual number will sometimes be less, e.g. if the script do not find suitable spawn positions 
+  or if part of the player's area is covered with water and blacklist markers.
   Example: 10
 
 * MIN_UNITS_IN_EACH_GROUP (Scalar): Minimum number of units in each group. The number of units in each group is a
@@ -199,6 +202,9 @@ For more information (for step 3 particulary), see the official and general docu
 This script is programmed in object oriented SQX. After downloading the CPack Engima.AmbientInfantry you will need 
 to compile it into SQF. The only editor (at the time of writing) that has the SQX compiler is TypeSqf. When the
 script is compiled, the output files (.sqx.sqf files) can be executed by Arma 3.
+
+The complete source code for Engima's Ambient Infantry script can be downloaded from 
+https://github.com/XEngima/EngimaAmbientInfantry
 
 - EXPORT SCRIPT TO SQF -
 

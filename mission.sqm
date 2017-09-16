@@ -8,18 +8,18 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=37;
+		nextID=46;
 	};
 	class MarkerIDProvider
 	{
-		nextID=5;
+		nextID=6;
 	};
 	class Camera
 	{
-		pos[]={4379.9482,192.14996,4314.7437};
-		dir[]={-0.6445995,-0.29674396,0.70461768};
-		up[]={-0.2003063,0.95495033,0.21895562};
-		aside[]={0.73784536,3.8027065e-007,0.67499959};
+		pos[]={1530.647,30.5,5045.9302};
+		dir[]={0.34612128,-0.40161625,0.84792757};
+		up[]={0.1517835,0.91579926,0.37183961};
+		aside[]={0.9258666,2.8882641e-007,-0.3779346};
 	};
 };
 binarizationWanted=0;
@@ -29,13 +29,14 @@ addons[]=
 	"A3_Air_F_Heli_Light_01",
 	"A3_Characters_F",
 	"A3_Soft_F_MRAP_02",
-	"A3_Soft_F_Quadbike_01"
+	"A3_Soft_F_Quadbike_01",
+	"A3_Air_F_EPC_Plane_CAS_01"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=4;
+		items=5;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -46,7 +47,7 @@ class AddonsMetaData
 		class Item1
 		{
 			className="A3_Air_F";
-			name="Arma 3 Alpha - Aircrafts";
+			name="Arma 3 Alpha - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -61,6 +62,13 @@ class AddonsMetaData
 		{
 			className="A3_Soft_F";
 			name="Arma 3 Alpha - Unarmored Land Vehicles";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item4
+		{
+			className="A3_Air_F_EPC";
+			name="Arma 3 Win Episode - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -93,19 +101,19 @@ class Mission
 	};
 	class Entities
 	{
-		items=7;
+		items=10;
 		class Item0
 		{
 			dataType="Marker";
-			position[]={2956.4863,-44.066895,4184.8936};
+			position[]={3732.8921,139.82764,4728.8696};
 			name="eng_blacklistMarker";
 			markerType="RECTANGLE";
 			type="ellipse";
-			a=100;
-			b=100;
-			angle=220.70294;
+			a=1000;
+			b=500;
+			angle=104.57583;
 			id=8;
-			atlOffset=-152.78467;
+			atlOffset=-44.837418;
 		};
 		class Item1
 		{
@@ -143,7 +151,6 @@ class Mission
 					class Attributes
 					{
 						name="p1";
-						isPlayer=1;
 						isPlayable=1;
 					};
 					id=27;
@@ -313,6 +320,109 @@ class Mission
 			};
 			id=36;
 			type="O_Quadbike_01_F";
+		};
+		class Item7
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={4369.8477,178.26857,4342.5146};
+				angles[]={-0,1.1159964,0.0075011365};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=41;
+			type="C_Heli_Light_01_civil_F";
+		};
+		class Item8
+		{
+			dataType="Group";
+			side="West";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={1535.33,5.5014391,5074.0498};
+					};
+					side="West";
+					flags=7;
+					class Attributes
+					{
+						isPlayer=1;
+					};
+					id=43;
+					type="B_Pilot_F";
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="speaker";
+							expression="_this setspeaker _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"STRING"
+										};
+									};
+									value="Male08ENG";
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=0.99000001;
+								};
+							};
+						};
+						nAttributes=2;
+					};
+				};
+			};
+			class Attributes
+			{
+			};
+			id=42;
+		};
+		class Item9
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={1546.3754,7.8805766,5079.356};
+				angles[]={-0,0.26564816,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=44;
+			type="B_Plane_CAS_01_dynamicLoadout_F";
 		};
 	};
 };

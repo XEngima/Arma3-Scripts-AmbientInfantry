@@ -58,7 +58,7 @@ namespace Engima.AmbientInfantry.Classes
 		public property Array UnitClasses { get; set; };
 		
 		// Gets or sets the maximum number of groups that will be handled by the current Ambient Infantry instance.
-		// The actual number will sometimes be less depending on eventual blacklist markers.
+		// The actual number will sometimes be less because of close water and blacklist markers.
 		public property Scalar MaxGroupsCount { get; set; };
 		
 		// Gets or sets the minimum number of units in each group. The number of units will be a random value 

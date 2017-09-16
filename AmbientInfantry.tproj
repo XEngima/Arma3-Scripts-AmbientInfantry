@@ -28,6 +28,10 @@
                     <IsSelected>false</IsSelected>
                     <SubNodes />
                   </ProjectNodeViewModel>
+                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="PlayerPosition.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Classes\PlayerPosition.sqx">
+                    <IsSelected>false</IsSelected>
+                    <SubNodes />
+                  </ProjectNodeViewModel>
                 </SubNodes>
               </ProjectNodeViewModel>
               <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="ConfigAndStart.sqf" IsExpanded="false" FileName="Engima\AmbientInfantry\ConfigAndStart.sqf">

@@ -19,5 +19,19 @@ namespace Engima.AmbientInfantry.Classes
 		public static method GetAllPlayers {
 			call BIS_fnc_listPlayers
 		};
+		
+		public static method GetAllPlayerPositions {
+			private _playerPositions = [];
+		
+			{
+				private _player = _x;
+				private _pos = position vehicle _x;
+				private _aheadPos = _pos getPos [(speed vehicle _player) * 3, getDir _player];
+				
+				_playerPositions pushBack [_pos, _aheadPos] new PlayerPosition;
+			} foreach call Helper.GetAllPlayers;
+			
+			_playerPositions
+		};
 	};
 };

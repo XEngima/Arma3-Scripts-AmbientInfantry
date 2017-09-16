@@ -14,23 +14,18 @@
 // Create a variable of type Array with custom options.
 private _parameters = [
 	["SIDE", east],
-	["UNIT_CLASSES", ["O_G_Soldier_F", "O_G_Soldier_lite_F", "O_G_Soldier_SL_F", "O_G_Soldier_TL_F", "O_G_Soldier_AR_F", "O_G_medic_F", "O_G_engineer_F", "O_G_Soldier_exp_F", "O_G_Soldier_GL_F", "O_G_Soldier_M_F", "O_G_Soldier_LAT_F", "O_G_Soldier_A_F", "O_G_officer_F"]],
+	["UNIT_CLASSES", ["O_Soldier_AA_F"]],
 	["MAX_GROUPS_COUNT", 10],
 	["MIN_UNITS_IN_EACH_GROUP", 2],
 	["MAX_UNITS_IN_EACH_GROUP", 4],
-	["MIN_SPAWN_DISTANCE", 800],
-	["MAX_SPAWN_DISTANCE", 1200],
+	["MIN_SPAWN_DISTANCE", 100],
+	["MAX_SPAWN_DISTANCE", 500],
 	["MIN_SPAWN_DISTANCE_ON_START", 100],
 	["MIN_SKILL", 0.4],
 	["MAX_SKILL", 0.6],
-	["BLACKLIST_MARKERS", []],
-	["ON_GROUP_CREATING", {
-		true
-	}],
-	["ON_GROUP_CREATED", {
-		params ["_group", "_groupsCount"];
-		hint (str _groupsCount);
-	}],
+	["BLACKLIST_MARKERS", ["eng_blacklistMarker"]],
+	["ON_GROUP_CREATING", { true }],
+	["ON_GROUP_CREATED", {}],
 	["ON_GROUP_REMOVED", {}],
 	["IN_DEBUG_MODE", true]
 ];
