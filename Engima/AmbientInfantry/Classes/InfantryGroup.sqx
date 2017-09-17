@@ -145,6 +145,32 @@ namespace Engima.AmbientInfantry.Classes
 			_position
 		};
 		
+		private method DoLookAround {
+			private _group = _self.Group;
+		
+			sleep random 10;
+			
+			if (!isNull _group) then {
+				private _units = units _group;
+				private _unit = selectRandom _units;
+				private _angle = random 360;
+				private _y = 100 * cos _angle;
+				private _x = 100 * sin _angle;
+				
+				private _lookAtPos = [(getPos _unit select 0) + _y, (getPos _unit select 1) + _x, 0];
+				_unit lookAt _lookAtPos;
+				
+				sleep 5;
+				if (!isNull _unit) then {
+					_unit lookAt objNull;
+				};
+			};
+		};
+		
+		public method LookAround {
+			[] spawn _self.DoLookAround;
+		};
+		
 		// Disposes the infantry group and cleans up all used resources.
 		public method Dispose {
 			{

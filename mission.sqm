@@ -105,7 +105,7 @@ class Mission
 		class Item0
 		{
 			dataType="Marker";
-			position[]={3732.8921,139.82764,4728.8696};
+			position[]={1972.7145,-17.460449,5478.5815};
 			name="eng_blacklistMarker";
 			markerType="RECTANGLE";
 			type="ellipse";
@@ -113,7 +113,7 @@ class Mission
 			b=500;
 			angle=104.57583;
 			id=8;
-			atlOffset=-44.837418;
+			atlOffset=-23.402744;
 		};
 		class Item1
 		{
@@ -216,7 +216,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={4354.1787,177.32567,4331.0771};
+						position[]={4354.1792,177.32568,4331.0767};
 					};
 					side="East";
 					flags=7;
@@ -227,6 +227,7 @@ class Mission
 					};
 					id=29;
 					type="O_support_GMG_F";
+					atlOffset=1.5258789e-005;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -275,6 +276,7 @@ class Mission
 			{
 			};
 			id=28;
+			atlOffset=1.5258789e-005;
 		};
 		class Item4
 		{
@@ -327,7 +329,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={4369.8477,178.26857,4342.5146};
-				angles[]={-0,1.1159964,0.0075011365};
+				angles[]={0,1.1159964,0.0075011365};
 			};
 			side="Empty";
 			flags=4;
@@ -414,7 +416,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={1546.3754,7.8805766,5079.356};
-				angles[]={-0,0.26564816,0};
+				angles[]={0,0.26564816,0};
 			};
 			side="Empty";
 			flags=4;

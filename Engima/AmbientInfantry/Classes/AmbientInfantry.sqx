@@ -437,11 +437,16 @@ namespace Engima.AmbientInfantry.Classes
 				};
 			
 				_iteration = _iteration + 1;
-				hint str _iteration;
 				
 				// Sleep a while
 				if (_iteration > _mConfiguration.MaxGroupsCount) then {
 					_mMissionHasStarted = true;
+					
+					{
+						call _x.LookAround;
+						//call ((selectRandom _mInfantryGroups) as InfantryGroup).LookAround;
+					} foreach _mInfantryGroups as InfantryGroup;
+					
 					sleep 3;
 				};
 			};

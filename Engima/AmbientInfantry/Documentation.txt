@@ -18,7 +18,8 @@ Script works in singleplayer, multiplayer, on hosted server, dedicated server an
 
 --- VERSION HISTORY ---
 
-1.1:  Fixed: Groups tend to spawn more often behind the players than ahead of them.
+1.1:    Made units a more aware of the surroundings by looking around.
+        Fixed: Groups tend to spawn more often behind the players than ahead of them.
         Fixed: Number of groups not relative to player area coverage.
         Fixed: No groups spawning when players start in a blacklisted area.
 1.0.61: Removed faulty documentation entry about ON_GROUP_CREATING.
