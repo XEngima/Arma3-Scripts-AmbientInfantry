@@ -396,9 +396,7 @@ namespace Engima.AmbientInfantry.Classes
                             };
                             
                             if (isNil "_goOnWithSpawn") then {
-                                _goOnWithSpawn = false;
-                                _userMessedUp = true;
-                                _logMsg = "Engima.AmbientInfantry: Error - Return value of callback OnGroupCreating is nil. Must be true or false.";
+                                _goOnWithSpawn = true;
                             };
                             
                             if (_userMessedUp) then {

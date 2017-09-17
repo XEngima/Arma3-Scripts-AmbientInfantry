@@ -8,19 +8,19 @@ Patrolling groups of different (customizable) sizes and with units of different 
 out of sight for the player(s), giving the impression that the units are all over the map. They get a waypoint to a 
 random position on the map, but are removed at a certain (customizable) distance from the nearest player.
 
-Script can execute run different instances of ambient infantry - with different customized behaviors - 
-simultaneously. For example, you can run one script that puts enemies on the map, and another that puts friendlies,
-or one that puts a lot of units with low skill and another that puts a few very skilled units on the map (see USING 
-MORE THAN ONE INSTANCE below).
+Script can run different instances of ambient infantry with different customized behaviors simultaneously. For 
+example, you can run one script that puts enemies on one part of the map, and another that puts friendlies on 
+another part of the map. Or you can runt one instance that puts a lot of units with low skill on the map, and 
+another that puts a few very skilled units on the map (see USING MORE THAN ONE INSTANCE below).
 
 Script works in singleplayer, multiplayer, on hosted server, dedicated server and for JIPs, and on any map.
 
 
 --- VERSION HISTORY ---
 
-1.1:    Made units a more aware of the surroundings by looking around.
+1.1:    Made the units a bit more aware of the surroundings by looking around.
         Fixed: Groups tend to spawn more often behind the players than ahead of them.
-        Fixed: Number of groups not relative to player area coverage.
+        Fixed: Number of groups sometimes not relative to player area coverage.
         Fixed: No groups spawning when players start in a blacklisted area.
 1.0.61: Removed faulty documentation entry about ON_GROUP_CREATING.
 1.0.6:  Changed signature for callback ON_GROUP_CREATING.
@@ -58,10 +58,10 @@ private _parameters = [
 	["MIN_SKILL", 0.4],
 	["MAX_SKILL", 0.6],
 	["BLACKLIST_MARKERS", []],
-	["ON_GROUP_CREATING", {}],
+	["ON_GROUP_CREATING", { true }],
 	["ON_GROUP_CREATED", {}],
 	["ON_GROUP_REMOVING", {}],
-	["ON_CHECK_RELEASE_GROUP", {}],
+	["ON_CHECK_RELEASE_GROUP", { false }],
 	["ON_GROUP_RELEASED", {}],
 	["IN_DEBUG_MODE", true]
 ];
@@ -127,6 +127,8 @@ Here is a complete list of the parameters and what they do:
     1 (Scalar): Number of infantry groups spawned and currently controlled by the script.
     2 (Scalar): Calculated maximun number of infantry groups that the script will try to spawn (depends on 
     nearby blacklist markers and how close players are to shore etc.).
+  Return true if you want to go on with the spawn, and false if you want to block the spawn. A return value of
+  type nil (no return value) will be interpreted as true.
   The example below will lower the number of groups during the night hours.
   Example:
     {

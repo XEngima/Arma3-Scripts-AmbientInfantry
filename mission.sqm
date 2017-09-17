@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={1530.647,30.5,5045.9302};
-		dir[]={0.34612128,-0.40161625,0.84792757};
-		up[]={0.1517835,0.91579926,0.37183961};
-		aside[]={0.9258666,2.8882641e-007,-0.3779346};
+		pos[]={4354.9146,187.55661,4322.7554};
+		dir[]={0.15784299,-0.24237527,0.95729917};
+		up[]={0.039436501,0.97016841,0.23917675};
+		aside[]={0.98671395,2.2458698e-007,-0.16269174};
 	};
 };
 binarizationWanted=0;
@@ -223,6 +223,7 @@ class Mission
 					class Attributes
 					{
 						name="p2";
+						isPlayer=1;
 						isPlayable=1;
 					};
 					id=29;
@@ -357,7 +358,6 @@ class Mission
 					flags=7;
 					class Attributes
 					{
-						isPlayer=1;
 					};
 					id=43;
 					type="B_Pilot_F";
