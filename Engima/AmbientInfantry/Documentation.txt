@@ -1,6 +1,6 @@
------------------------------------------------
- - ENGIMA'S AMBIENT INFANTRY (VERSION 1.1) -
------------------------------------------------
+---------------------------------------------
+ - ENGIMA'S AMBIENT INFANTRY (VERSION 1.2) -
+---------------------------------------------
 
 Engima's Ambient Infantry is a script that adds patrolling infantry groups "all over the map" in an Arma 3 mission.
 
