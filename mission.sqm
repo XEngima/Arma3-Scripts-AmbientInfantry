@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=46;
+		nextID=48;
 	};
 	class MarkerIDProvider
 	{
@@ -17,9 +17,9 @@ class EditorData
 	class Camera
 	{
 		pos[]={4354.9146,187.55661,4322.7554};
-		dir[]={0.15784299,-0.24237527,0.95729917};
-		up[]={0.039436501,0.97016841,0.23917675};
-		aside[]={0.98671395,2.2458698e-007,-0.16269174};
+		dir[]={-0.0040918803,-0.48761308,0.87310392};
+		up[]={-0.0022850756,0.87304431,0.48762721};
+		aside[]={1.0000311,-8.5708962e-008,0.0046880012};
 	};
 };
 binarizationWanted=0;
@@ -101,7 +101,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=10;
+		items=12;
 		class Item0
 		{
 			dataType="Marker";
@@ -425,6 +425,37 @@ class Mission
 			};
 			id=44;
 			type="B_Plane_CAS_01_dynamicLoadout_F";
+			atlOffset=0.00012159348;
+		};
+		class Item10
+		{
+			dataType="Trigger";
+			position[]={4364.085,177.5826,4346.8271};
+			class Attributes
+			{
+				onActivation="dre_groupsReleased = true";
+				sizeA=0;
+				sizeB=0;
+				repeatable=1;
+				activationBy="ALPHA";
+			};
+			id=46;
+			type="EmptyDetector";
+		};
+		class Item11
+		{
+			dataType="Trigger";
+			position[]={4363.2969,177.57678,4344.4932};
+			class Attributes
+			{
+				onActivation="dre_groupsReleased = false";
+				sizeA=0;
+				sizeB=0;
+				repeatable=1;
+				activationBy="BRAVO";
+			};
+			id=47;
+			type="EmptyDetector";
 		};
 	};
 };

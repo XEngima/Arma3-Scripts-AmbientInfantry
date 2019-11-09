@@ -327,6 +327,7 @@ namespace Engima.AmbientInfantry.Classes
 							if (_releaseGroup) then {
 								_groupsCount = _groupsCount - 1;
 								[_infantryGroup.Group] call WaypointHelper.DeleteAllWaypointsFromGroup;
+								call _infantryGroup.HideMarker;
 								[_infantryGroup.Group, _groupsCount] call _mConfiguration.OnGroupReleased;
 							}
 							else {

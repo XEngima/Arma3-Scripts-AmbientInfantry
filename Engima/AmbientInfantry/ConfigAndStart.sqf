@@ -10,6 +10,16 @@
  * The Ambient Infantry script is programmed in SQX and compiled into SQF. For the complete source
  * code, use the TypeSqf editor and install the CPack Engima.AmbientInfantry.
  */
+ 
+dre_groupsReleased = false;
+ 
+private _onReleaseGroup = {
+	dre_groupsReleased
+};
+
+private _onGroupReleased = {
+	
+};
 
 // Create a variable of type Array with custom options.
 private _parameters = [
@@ -26,7 +36,9 @@ private _parameters = [
 	["BLACKLIST_MARKERS", []],
 	["ON_GROUP_CREATED", {}],	// Note: There are more callbacks available to further control the script.
 	["ON_GROUP_REMOVED", {}],	//       See the documentation for more info.
-	["IN_DEBUG_MODE", false]
+	["ON_CHECK_RELEASE_GROUP", _onReleaseGroup],
+	["ON_GROUP_RELEASED", _onGroupReleased],
+	["IN_DEBUG_MODE", true]
 ];
 
 // Call the function that creates and starts the ambient infantry instance.

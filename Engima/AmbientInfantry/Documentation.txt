@@ -18,6 +18,7 @@ Script works in singleplayer, multiplayer, on hosted server, dedicated server an
 
 --- VERSION HISTORY ---
 
+1.2:    Fixed: Debug marker do not disappear when group is released.
 1.1:    Made the units a bit more aware of the surroundings by looking around.
         Fixed: Groups tend to spawn more often behind the players than ahead of them.
         Fixed: Number of groups sometimes not relative to player area coverage.

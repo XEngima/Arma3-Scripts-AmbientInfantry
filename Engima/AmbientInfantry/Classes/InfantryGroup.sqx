@@ -40,7 +40,6 @@ namespace Engima.AmbientInfantry.Classes
 					_color = "ColorGuer";
 				};
 				
-				//_mMarker = [getPos (units _group select 0), "hd_dot", _color] new Marker;
 				_mMarker = [getPos (units _group select 0), "hd_dot", _color, "Ambient Infantry"] call Marker.CreateIconMarker;
 			};
 			
@@ -172,7 +171,8 @@ namespace Engima.AmbientInfantry.Classes
 		};
 		
 		// Disposes the infantry group and cleans up all used resources.
-		public method Dispose {
+		public method Dispose
+		{
 			{
 				deleteVehicle _x;
 			} foreach units _self.Group as Object;
@@ -180,6 +180,11 @@ namespace Engima.AmbientInfantry.Classes
 			deleteGroup _self.Group;
 			_self.Group = grpNull;
 			
+			call _self.HideMarker;
+		};
+		
+		public method HideMarker()
+		{
 			if (!isNull _mMarker) then {
 				call _mMarker.Hide;
 			};
