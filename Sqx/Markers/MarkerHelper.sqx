@@ -15,9 +15,7 @@ namespace Sqx.Markers
 		// _position (Array): The position to test.
 		// _markers (Array): The markers to check.
 		// Returns (Boolean): true if the position is inside any of the markers, otherwise false.
-		public static method Boolean PositionInsideAnyMarker {
-			params ["_position" as Array, "_markers" as Array];
-			
+		public static method Boolean PositionInsideAnyMarker("_position" as Array, "_markers" as Array /* of String */) {
 			scopeName "main";
 	
 			{				
@@ -32,8 +30,7 @@ namespace Sqx.Markers
 		// Gets whether a marker exists on the map or not.
 		// _marker (String): Marker name of the marker to test for existance.
 		// Returns (Boolean): true if the marker exists on the map, otherwise false.
-		public static method Boolean MarkerExists {
-			params ["_markerName" as String];
+		public static method Boolean MarkerExists("_markerName" as String) {
 			private _exists = false;
 
 			if (((getMarkerPos _markerName) select 0) != 0 || { (getMarkerPos _markerName) select 1 != 0 }) then {
@@ -46,9 +43,7 @@ namespace Sqx.Markers
 		// Gets a random position inside a marker.
 		// _markerName (String): Name of the marker to get the random position from.
 		// Returns (Array): The random position.
-		public static method Array GetRandomPosInsideMarker {
-		    params ["_markerName" as String];
-
+		public static method Array GetRandomPosInsideMarker("_markerName" as String) {
 			private ["_isInside" as Boolean, "_px" as Scalar, "_py" as Scalar, "_mpx" as Scalar,
 				"_mpy" as Scalar, "_msx" as Scalar, "_msy" as Scalar, "_ma" as Scalar, "_rpx" as Scalar,
 				"_rpy" as Scalar, "_i" as Scalar];

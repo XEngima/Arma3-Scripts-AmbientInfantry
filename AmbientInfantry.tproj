@@ -1,100 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectRootNode Name="AmbientInfantry" IsExpanded="true" FileName="">
-    <IsSelected>false</IsSelected>
+  <ProjectRootNode Name="AmbientInfantry" FileName="">
     <SubNodes>
-      <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Engima" IsExpanded="true" FileName="Engima">
-        <IsSelected>false</IsSelected>
+      <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Engima" FileName="Engima">
         <SubNodes>
-          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="AmbientInfantry" IsExpanded="true" FileName="Engima\AmbientInfantry">
-            <IsSelected>false</IsSelected>
+          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="AmbientInfantry" FileName="Engima\AmbientInfantry">
             <SubNodes>
-              <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Classes" IsExpanded="true" FileName="Engima\AmbientInfantry\Classes">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Classes" FileName="Engima\AmbientInfantry\Classes">
                 <SubNodes>
-                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="AmbientInfantry.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Classes\AmbientInfantry.sqx">
-                    <IsSelected>false</IsSelected>
+                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="AmbientInfantry.sqx" FileName="Engima\AmbientInfantry\Classes\AmbientInfantry.sqx">
                     <SubNodes />
                   </ProjectNodeViewModel>
-                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Configuration.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Classes\Configuration.sqx">
-                    <IsSelected>false</IsSelected>
+                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Configuration.sqx" FileName="Engima\AmbientInfantry\Classes\Configuration.sqx">
                     <SubNodes />
                   </ProjectNodeViewModel>
-                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Helper.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Classes\Helper.sqx">
-                    <IsSelected>false</IsSelected>
+                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Helper.sqx" FileName="Engima\AmbientInfantry\Classes\Helper.sqx">
                     <SubNodes />
                   </ProjectNodeViewModel>
-                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="InfantryGroup.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Classes\InfantryGroup.sqx">
-                    <IsSelected>false</IsSelected>
+                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="InfantryGroup.sqx" FileName="Engima\AmbientInfantry\Classes\InfantryGroup.sqx">
                     <SubNodes />
                   </ProjectNodeViewModel>
-                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="PlayerPosition.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Classes\PlayerPosition.sqx">
-                    <IsSelected>false</IsSelected>
+                  <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="PlayerPosition.sqx" FileName="Engima\AmbientInfantry\Classes\PlayerPosition.sqx">
                     <SubNodes />
                   </ProjectNodeViewModel>
                 </SubNodes>
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="ConfigAndStart.sqf" IsExpanded="false" FileName="Engima\AmbientInfantry\ConfigAndStart.sqf">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="ConfigAndStart.sqf" FileName="Engima\AmbientInfantry\ConfigAndStart.sqf">
                 <SubNodes />
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Documentation.txt" IsExpanded="false" FileName="Engima\AmbientInfantry\Documentation.txt">
-                <IsSelected>true</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Documentation.txt" FileName="Engima\AmbientInfantry\Documentation.txt">
                 <SubNodes />
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="HeadlessClient.sqf" IsExpanded="false" FileName="Engima\AmbientInfantry\HeadlessClient.sqf">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="HeadlessClient.sqf" FileName="Engima\AmbientInfantry\HeadlessClient.sqf">
                 <SubNodes />
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Init.sqx" IsExpanded="false" FileName="Engima\AmbientInfantry\Init.sqx">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Init.sqx" FileName="Engima\AmbientInfantry\Init.sqx">
                 <SubNodes />
               </ProjectNodeViewModel>
             </SubNodes>
           </ProjectNodeViewModel>
         </SubNodes>
       </ProjectNodeViewModel>
-      <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Sqx" IsExpanded="true" FileName="Sqx">
-        <IsSelected>false</IsSelected>
+      <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Sqx" FileName="Sqx">
         <SubNodes>
-          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Markers" IsExpanded="true" FileName="Sqx\Markers">
-            <IsSelected>false</IsSelected>
+          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Markers" FileName="Sqx\Markers">
             <SubNodes>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="init.sqx" IsExpanded="false" FileName="Sqx\Markers\init.sqx">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="init.sqx" FileName="Sqx\Markers\init.sqx">
                 <SubNodes />
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Marker.sqx" IsExpanded="false" FileName="Sqx\Markers\Marker.sqx">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Marker.sqx" FileName="Sqx\Markers\Marker.sqx">
                 <SubNodes />
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="MarkerHelper.sqx" IsExpanded="false" FileName="Sqx\Markers\MarkerHelper.sqx">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="MarkerHelper.sqx" FileName="Sqx\Markers\MarkerHelper.sqx">
                 <SubNodes />
               </ProjectNodeViewModel>
             </SubNodes>
           </ProjectNodeViewModel>
-          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Waypoints" IsExpanded="false" FileName="Sqx\Waypoints">
-            <IsSelected>false</IsSelected>
+          <ProjectNodeViewModel xsi:type="ProjectFolderNodeViewModel" Name="Waypoints" FileName="Sqx\Waypoints">
             <SubNodes>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Init.sqx" IsExpanded="false" FileName="Sqx\Waypoints\Init.sqx">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="Init.sqx" FileName="Sqx\Waypoints\Init.sqx">
                 <SubNodes />
               </ProjectNodeViewModel>
-              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="WaypointHelper.sqx" IsExpanded="false" FileName="Sqx\Waypoints\WaypointHelper.sqx">
-                <IsSelected>false</IsSelected>
+              <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="WaypointHelper.sqx" FileName="Sqx\Waypoints\WaypointHelper.sqx">
                 <SubNodes />
               </ProjectNodeViewModel>
             </SubNodes>
           </ProjectNodeViewModel>
         </SubNodes>
       </ProjectNodeViewModel>
-      <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="description.ext" IsExpanded="false" FileName="description.ext">
-        <IsSelected>false</IsSelected>
+      <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="description.ext" FileName="description.ext">
         <SubNodes />
       </ProjectNodeViewModel>
-      <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="init.sqf" IsExpanded="true" FileName="init.sqf">
-        <IsSelected>false</IsSelected>
+      <ProjectNodeViewModel xsi:type="ProjectFileNodeViewModel" Name="init.sqf" FileName="init.sqf">
         <SubNodes />
       </ProjectNodeViewModel>
     </SubNodes>
